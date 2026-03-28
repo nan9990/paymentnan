@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanzz Store - All Payment</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+        body { background: #0f0f23; color: #fff; padding: 20px; }
+        
+        .store-container { max-width: 600px; margin: 0 auto; background: #1a1a2e; padding: 25px; border-radius: 20px; border: 1px solid #8B5CF6; }
+        h2 { text-align: center; margin-bottom: 20px; color: #8B5CF6; }
+
+        .payment-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+        .pay-card { background: #252545; padding: 15px; border-radius: 12px; text-align: center; cursor: pointer; border: 1px solid transparent; transition: 0.3s; }
+        .pay-card:hover { border-color: #EC4899; transform: translateY(-3px); }
+        .pay-card img { width: 60px; height: auto; margin-bottom: 10px; border-radius: 5px; }
+        .pay-card p { font-size: 14px; font-weight: 600; }
+
+        /* Modal Overlay */
+        #payment-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 100; }
+        .modal-content { background: #1a1a2e; padding: 30px; border-radius: 20px; text-align: center; max-width: 400px; width: 90%; border: 2px solid #EC4899; }
+        .qris-img { width: 100%; border-radius: 10px; margin: 15px 0; }
+        .btn-close { background: #ff4757; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 15px; width: 100%; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="store-container">
+        <h2>🛒 Nanzz Store Payment</h2>
+        <p style="text-align:center; font-size: 12px; color: #aaa;">Pilih metode pembayaran untuk melanjutkan</p>
+
+        <div class="payment-grid">
+            <div class="pay-card" onclick="openPayment('QRIS ALL PAYMENT', 'https://files.catbox.moe/y5g13k.jpg')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" alt="QRIS">
+                <p>QRIS (Semua Bank)</p>
+            </div>
+            <div class="pay-card" onclick="openPayment('DANA', 'Nomor: 08872481816')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA">
+                <p>DANA</p>
+            </div>
+            <div class="pay-card" onclick="openPayment('GOPAY', 'Nomor: 081220749198')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GOPAY">
+                <p>GOPAY</p>
+            </div>
+            <div class="pay-card" onclick="openPayment('OVO', 'BLM ADA YA ANJG')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO">
+                <p>OVO</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="payment-modal">
+        <div class="modal-content">
+            <h3 id="method-name">Pembayaran</h3>
+            <div id="payment-info"></div>
+            <img id="qris-display" class="qris-img" src="" style="display:none;">
+            <p style="font-size: 12px; margin-top: 10px;">Silakan screenshot & kirim bukti ke Admin Bos Nanzz.</p>
+            <button class="btn-close" onclick="closePayment()">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        function openPayment(name, info) {
+            document.getElementById('method-name').innerText = name;
+            const infoDiv = document.getElementById('payment-info');
+            const qrisImg = document.getElementById('qris-display');
+            
+            if (name === 'QRIS ALL PAYMENT') {
+                infoDiv.innerText = "Scan kode di bawah ini:";
+                qrisImg.src = info;
+                qrisImg.style.display = "block";
+            } else {
+                infoDiv.innerHTML = `Silakan transfer ke:<br><strong>${info}</strong>`;
+                qrisImg.style.display = "none";
+            }
+            
+            document.getElementById('payment-modal').style.display = 'flex';
+        }
+
+        function closePayment() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
